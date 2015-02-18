@@ -1,14 +1,14 @@
-// gophercon15-demo project main.go
 package main
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
-	"gopkg.in/mgo.v2"
-        "gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
 	"time"
+	
+	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2"
+        "gopkg.in/mgo.v2/bson"
 )
 
 var (
