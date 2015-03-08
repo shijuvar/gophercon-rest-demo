@@ -123,30 +123,14 @@ func main() {
 	r.HandleFunc("/api/notes/{id}", UpdateNoteHandler).Methods("PUT")
 	r.HandleFunc("/api/notes/{id}", DeleteNoteHandler).Methods("DELETE")
 	http.Handle("/api/", r)
-	http.Handle("/", http.FileServer(http.Dir(".")))
-
+	
 	log.Println("Starting mongodb session")
 	var err error
 	session, err = mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
 	}
-	/*
-		mongoDialInfo := &mgo.DialInfo{
-			Addrs:    []string{MongoDBHosts},
-			Timeout:  60 * time.Second,
-			Database: MongoDatabase,
-			Username: MongoUserName,
-			Password: MongoPassword,
-		}
 
-		// Create a session which maintains a pool of socket connections
-		// to our MongoDB.
-		session, err := mgo.DialWithInfo(mongoDialInfo)
-		if err != nil {
-			log.Fatalf("CreateSession: %s\n", err)
-		}
-	*/
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
 	collection = session.DB("notesdb").C("notes")
